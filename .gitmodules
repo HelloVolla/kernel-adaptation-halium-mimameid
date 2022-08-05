@@ -1,0 +1,3 @@
+[submodule "linux"]
+	path = linux
+	url = https://gitlab.com/ubports/porting/community-ports/android11/volla-phone-22/kernel-volla-mt6768.git
