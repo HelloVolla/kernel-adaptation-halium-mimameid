@@ -1,5 +1,5 @@
 # Device details
-%define device halium-qx1050
+%define device halium-mimameid
 
 # Kernel target architecture
 %define kernel_arch arm64
@@ -21,7 +21,7 @@
 %define device_target_cpu aarch64
 
 # Defconfig to pick-up
-%define defconfig sfos-bengal-perf_defconfig
+%define defconfig sfos-gs5_defconfig
 
 # Linux kernel source directory
 %define source_directory linux/
@@ -42,20 +42,21 @@
 
 #Device Info
 
-%define deviceinfo_dtb vendor/qcom/bengal.dtb
+%define deviceinfo_dtb mediatek/mt6768.dtb
 %define deviceinfo_dtbo vendor/qcom/bengal-idp-overlay.dtbo
-%define deviceinfo_flash_pagesize 4096
-%define deviceinfo_flash_offset_base 0x00000000
-%define deviceinfo_flash_offset_kernel 0x00008000
-%define deviceinfo_flash_offset_ramdisk 0x01000000
-%define deviceinfo_flash_offset_second 0x00f00000
-%define deviceinfo_flash_offset_tags 0x00000100
-%define deviceinfo_flash_offset_dtb 0x01f00000
-%define deviceinfo_kernel_cmdline console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0x4a90000 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 buildvariant=userdebug console=tty0
+%define deviceinfo_flash_pagesize 2048
+%define deviceinfo_flash_offset_base 0x40000000
+%define deviceinfo_flash_offset_kernel 0x00080000
+%define deviceinfo_flash_offset_ramdisk 0x07c80000
+%define deviceinfo_flash_offset_second 0x00e88000
+%define deviceinfo_flash_offset_tags 0x0bc80000
+%define deviceinfo_flash_offset_dtb 0x0bc80000
+%define deviceinfo_kernel_cmdline bootopt=64S3,32N2,64N2 systempart=/dev/mapper/system
 %define deviceinfo_bootimg_os_version 11
-%define deviceinfo_bootimg_os_patch_level 2021-10-01
+%define deviceinfo_bootimg_os_patch_level 2021-11-01
 %define deviceinfo_bootimg_header_version 2
-%define deviceinfo_bootimg_partition_size 100663296
+%define deviceinfo_bootimg_partition_size 33554432
 %define deviceinfo_rootfs_image_sector_size 4096
+%define deviceinfo_bootimg_qcdt false
 
 %include kernel-adaptation-simplified/kernel-adaptation-simplified.inc
