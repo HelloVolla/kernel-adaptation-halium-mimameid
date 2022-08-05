@@ -1,0 +1,110 @@
+diff --git a/techpack/audio/asoc/bengal.c b/techpack/audio/asoc/bengal.c
+index 29c28cf863e4..0167ee45e6b2 100644
+--- a/techpack/audio/asoc/bengal.c
++++ b/techpack/audio/asoc/bengal.c
+@@ -6048,7 +6048,7 @@ static const struct of_device_id bengal_asoc_machine_of_match[]  = {
+ 
+ static int msm_snd_card_bengal_late_probe(struct snd_soc_card *card)
+ {
+-	struct snd_soc_component *component;
++	struct snd_soc_component *component = NULL;
+ 	struct platform_device *pdev = NULL;
+ 	char *data = NULL;
+ 	int ret = 0, i = 0;
+@@ -6345,7 +6345,7 @@ static int msm_init_aux_dev(struct platform_device *pdev,
+ 	u32 codec_max_aux_devs = 0;
+ 	u32 codec_aux_dev_cnt = 0;
+ 	int i;
+-	struct msm_wsa881x_dev_info *wsa881x_dev_info;
++	struct msm_wsa881x_dev_info *wsa881x_dev_info = NULL;
+ 	struct aux_codec_dev_info *aux_cdc_dev_info;
+ 	const char *auxdev_name_prefix[1];
+ 	char *dev_name_str = NULL;
+diff --git a/techpack/audio/asoc/codecs/awinic/aw87xxx.c b/techpack/audio/asoc/codecs/awinic/aw87xxx.c
+index cfd3e0097706..439e52c8dd1e 100755
+--- a/techpack/audio/asoc/codecs/awinic/aw87xxx.c
++++ b/techpack/audio/asoc/codecs/awinic/aw87xxx.c
+@@ -253,7 +253,7 @@ unsigned char aw87xxx_show_current_mode(int32_t channel)
+ {
+ 	struct aw87xxx *aw87xxx;
+ 	struct list_head *pos;
+-	uint8_t ret;
++	uint8_t ret = 0;
+ 
+ 	list_for_each(pos, &g_aw87xxx_device_list) {
+ 		aw87xxx = list_entry(pos, struct aw87xxx, list);
+@@ -283,7 +283,7 @@ int aw87xxx_audio_scene_load(uint8_t mode, int32_t channel)
+ 	struct aw87xxx_scene_param *scene_param;
+ 	struct list_head *pos;
+ 	struct aw87xxx *aw87xxx;
+-	int ret;
++	int ret = 0;
+ 
+ 	list_for_each(pos, &g_aw87xxx_device_list) {
+ 		aw87xxx = list_entry(pos, struct aw87xxx, list);
+diff --git a/techpack/audio/asoc/codecs/awinic/aw87xxx1.c b/techpack/audio/asoc/codecs/awinic/aw87xxx1.c
+index 9bfeac9e6801..287986fb1904 100755
+--- a/techpack/audio/asoc/codecs/awinic/aw87xxx1.c
++++ b/techpack/audio/asoc/codecs/awinic/aw87xxx1.c
+@@ -254,7 +254,7 @@ unsigned char aw87xxx_show_current_mode1(int32_t channel)
+ {
+ 	struct aw87xxx *aw87xxx;
+ 	struct list_head *pos;
+-	uint8_t ret;
++	uint8_t ret = 0;
+ 
+ 	list_for_each(pos, &g_aw87xxx_device_list) {
+ 		aw87xxx = list_entry(pos, struct aw87xxx, list);
+@@ -284,7 +284,7 @@ int aw87xxx_audio_scene_load1(uint8_t mode, int32_t channel)
+ 	struct aw87xxx_scene_param *scene_param;
+ 	struct list_head *pos;
+ 	struct aw87xxx *aw87xxx;
+-	int ret;
++	int ret = 0;
+ 
+ 	list_for_each(pos, &g_aw87xxx_device_list) {
+ 		aw87xxx = list_entry(pos, struct aw87xxx, list);
+diff --git a/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor.c b/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor.c
+index 92b78745dee4..3594da17e509 100755
+--- a/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor.c
++++ b/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor.c
+@@ -480,7 +480,7 @@ static ssize_t aw87xxx_get_rx(struct device *dev,
+ 	struct aw87xxx *aw87xxx = dev_get_drvdata(dev);
+ 	ssize_t len = 0;
+ 	int ret = -1;
+-	uint32_t enable;
++	uint32_t enable = 0;
+ 
+ 	ret = aw_read_data_from_dsp(INDEX_PARAMS_ID_RX_ENBALE,
+ 				    &enable, sizeof(uint32_t),
+@@ -500,7 +500,7 @@ static ssize_t aw87xxx_set_rx(struct device *dev,
+ {
+ 	struct aw87xxx *aw87xxx = dev_get_drvdata(dev);
+ 	int ret = -1;
+-	uint32_t enable;
++	uint32_t enable = 0;
+ 
+ 	ret = kstrtouint(buf, 0, &enable);
+ 	if (ret < 0)
+diff --git a/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor1.c b/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor1.c
+index a6ca125ebf67..087be6316e02 100755
+--- a/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor1.c
++++ b/techpack/audio/asoc/codecs/awinic/aw87xxx_monitor1.c
+@@ -480,7 +480,7 @@ static ssize_t aw87xxx_get_rx(struct device *dev,
+ 	struct aw87xxx *aw87xxx = dev_get_drvdata(dev);
+ 	ssize_t len = 0;
+ 	int ret = -1;
+-	uint32_t enable;
++	uint32_t enable = 0;
+ 
+ 	ret = aw_read_data_from_dsp(INDEX_PARAMS_ID_RX_ENBALE,
+ 				    &enable, sizeof(uint32_t),
+@@ -500,7 +500,7 @@ static ssize_t aw87xxx_set_rx(struct device *dev,
+ {
+ 	struct aw87xxx *aw87xxx = dev_get_drvdata(dev);
+ 	int ret = -1;
+-	uint32_t enable;
++	uint32_t enable = 0;
+ 
+ 	ret = kstrtouint(buf, 0, &enable);
+ 	if (ret < 0)
