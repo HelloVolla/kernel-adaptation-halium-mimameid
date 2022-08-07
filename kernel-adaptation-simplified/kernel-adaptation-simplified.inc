@@ -60,6 +60,7 @@ BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  bc
 BuildRequires:  python
+BuildRequires:  python3-base
 BuildRequires:  openssl
 #!BuildIgnore:  rpmlint-mini
 
