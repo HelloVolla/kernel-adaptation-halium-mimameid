@@ -1,0 +1,22 @@
+diff --git a/drivers/misc/mediatek/base/power/cm_mgr_v1/mtk_cm_mgr.c b/drivers/misc/mediatek/base/power/cm_mgr_v1/mtk_cm_mgr.c
+index a2b45d70dfa3..e894d0521000 100644
+--- a/drivers/misc/mediatek/base/power/cm_mgr_v1/mtk_cm_mgr.c
++++ b/drivers/misc/mediatek/base/power/cm_mgr_v1/mtk_cm_mgr.c
+@@ -504,7 +504,7 @@ void check_cm_mgr_status_internal(void)
+ #endif /* CONFIG_MTK_CPU_FREQ */
+ #endif /* USE_NEW_CPU_OPP */
+ 		total_bw = cm_mgr_get_bw() / 512;
+-		memset(count_ack, 0, ARRAY_SIZE(count_ack));
++		memset(count_ack, 0, ARRAY_SIZE(count_ack) * sizeof(int));
+ 
+ 		if (total_bw_value)
+ 			total_bw = total_bw_value;
+@@ -519,7 +519,7 @@ void check_cm_mgr_status_internal(void)
+ 		}
+ 
+ 		/* get max loading */
+-		memset(max_load, 0, ARRAY_SIZE(count_ack));
++		memset(max_load, 0, ARRAY_SIZE(max_load) * sizeof(int));
+ 
+ 		for_each_possible_cpu(i) {
+ 			int avg_load;
