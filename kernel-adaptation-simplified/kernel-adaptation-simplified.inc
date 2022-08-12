@@ -99,21 +99,25 @@ echo "***** Applying patches *****"
 sh patches/apply-patches.sh %{source_directory}
 %endif
 
+cd %{source_directory}
+
 echo "***** Cleaning *****"
-make -C %{source_directory} O=out clean
+make O=out clean
 
 echo "***** Making defconfig *****"
-make -C %{source_directory} O=out defconfig KBUILD_DEFCONFIG=$defconfig_name
+make O=out defconfig KBUILD_DEFCONFIG=$defconfig_name
 
 %if 0%{?build_Image:1}
 echo "***** Building Image *****"
-make -C %{source_directory} -j$(nproc) O=out %{kcflags}
+make -j$(nproc) O=out %{kcflags}
 %endif
 
 %if 0%{?build_modules:1}
 echo "***** Building Modules *****"
-make -C %{source_directory} -j$(nproc) O=out %{kcflags} modules
+make -j$(nproc) O=out %{kcflags} modules
 %endif
+
+cd ..
 
 %if 0%{?build_dtboimage:1}
 echo "***** Building DTBO Image *****"
