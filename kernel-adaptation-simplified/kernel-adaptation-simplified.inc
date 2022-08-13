@@ -109,7 +109,7 @@ make O=out defconfig KBUILD_DEFCONFIG=$defconfig_name
 
 %if 0%{?build_Image:1}
 echo "***** Building Image *****"
-make -j$(nproc) O=out %{kcflags}
+make -j$(nproc) O=out V=1 %{kcflags}
 %endif
 
 %if 0%{?build_modules:1}

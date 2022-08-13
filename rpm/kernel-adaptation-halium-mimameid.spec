@@ -43,7 +43,6 @@
 #Device Info
 
 %define deviceinfo_dtb mediatek/mt6768.dtb
-%define deviceinfo_dtbo vendor/qcom/bengal-idp-overlay.dtbo
 %define deviceinfo_flash_pagesize 2048
 %define deviceinfo_flash_offset_base 0x40000000
 %define deviceinfo_flash_offset_kernel 0x00080000
