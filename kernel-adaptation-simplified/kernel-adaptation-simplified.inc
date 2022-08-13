@@ -63,6 +63,7 @@ BuildRequires:  python
 BuildRequires:  python3-base
 BuildRequires:  openssl
 #!BuildIgnore:  rpmlint-mini
+BuildRequires:  dtc
 
 %if 0%{?crossbuild:1}
 BuildRequires:  cross-%{crossbuild}-gcc
@@ -99,25 +100,21 @@ echo "***** Applying patches *****"
 sh patches/apply-patches.sh %{source_directory}
 %endif
 
-cd %{source_directory}
-
 echo "***** Cleaning *****"
-make O=out clean
+make -C %{source_directory} O=out clean
 
 echo "***** Making defconfig *****"
-make O=out defconfig KBUILD_DEFCONFIG=$defconfig_name
+make -C %{source_directory} O=out defconfig KBUILD_DEFCONFIG=$defconfig_name
 
 %if 0%{?build_Image:1}
 echo "***** Building Image *****"
-make -j$(nproc) O=out V=1 %{kcflags}
+DTC_EXT=/usr/bin/dtc make -C %{source_directory} -j$(nproc) O=out %{kcflags}
 %endif
 
 %if 0%{?build_modules:1}
 echo "***** Building Modules *****"
-make -j$(nproc) O=out %{kcflags} modules
+make -C %{source_directory} -j$(nproc) O=out %{kcflags} modules
 %endif
-
-cd ..
 
 %if 0%{?build_dtboimage:1}
 echo "***** Building DTBO Image *****"
