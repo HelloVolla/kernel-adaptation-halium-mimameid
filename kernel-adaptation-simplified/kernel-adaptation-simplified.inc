@@ -127,7 +127,7 @@ echo "***** Building Boot Image *****"
 KERNEL=%{source_directory}/out/arch/%{kernel_arch}/boot/Image.gz
 DTB=%{source_directory}/out/arch/%{kernel_arch}/boot/dts/%{deviceinfo_dtb}
 EXTRA_ARGS=""
-RAMDISK=kernel-adaptation-simplified/halium-boot-ramdisk.img
+RAMDISK=%{ramdisk}
 OUT=%{source_directory}/out/arch/%{kernel_arch}/boot/boot.img
 
 if [ "%{deviceinfo_bootimg_header_version}" -le 2 ]; then
