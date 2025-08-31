@@ -68,5 +68,9 @@
 
 Version:        4.19.191
 Release:        1
+Provides:       droid-hal-kernel
+Provides:       droid-hal-img-boot
+Provides:       droid-hal-img-recovery
+
 
 %include kernel-adaptation-simplified/kernel-adaptation-simplified.inc
