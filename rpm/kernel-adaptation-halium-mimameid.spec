@@ -49,7 +49,7 @@
 ##define devicetrees
 
 #Device Info
-%define deviceinfo_kernel_cmdline bootopt=64S3,32N2,64N2 systempart=/dev/mapper/system
+%define deviceinfo_kernel_cmdline bootopt=64S3,32N2,64N2 systempart=/dev/mapper/system init=/init
 %define deviceinfo_dtb mediatek/mt6768.dtb
 %define deviceinfo_dtbo mediatek/k69v1_64_k419.dtbo
 %define deviceinfo_flash_pagesize 2048
@@ -67,10 +67,6 @@
 %define deviceinfo_bootimg_qcdt false
 
 Version:        4.19.191
-Release:        1
-Provides:       droid-hal-kernel
-Provides:       droid-hal-img-boot
-Provides:       droid-hal-img-recovery
-
+Release:        2
 
 %include kernel-adaptation-simplified/kernel-adaptation-simplified.inc

@@ -46,6 +46,9 @@ Summary:        Kernel adaptation for %{rpm_device}
 Group:          System
 License:        GPLv2
 Provides:       kernel
+Provides:       droid-hal-kernel
+Provides:       droid-hal-img-boot
+Provides:       droid-hal-img-recovery
 Source:         %{name}-%{version}.tar.bz2
 Requires(pre):  kmod >= 9
 BuildRequires:  pkgconfig(ncurses)
