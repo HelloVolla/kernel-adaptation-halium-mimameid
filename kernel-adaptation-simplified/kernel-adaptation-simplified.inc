@@ -60,7 +60,7 @@ BuildRequires:  kmod >= 9
 BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  bc
-BuildRequires:  python3
+BuildRequires:  python
 BuildRequires:  python3-base
 BuildRequires:  openssl
 #!BuildIgnore:  rpmlint-mini
