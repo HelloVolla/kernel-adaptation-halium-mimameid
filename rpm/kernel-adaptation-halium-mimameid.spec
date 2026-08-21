@@ -7,13 +7,9 @@
 %define kcflags "KCFLAGS=-Wno-misleading-indentation -Wno-format -Wno-bool-operation -Wno-unused-variable -Wno-unused-result -Wno-pointer-to-int-cast -Wno-unused-value -Wno-sequence-point -Wno-return-type -Wno-implicit-int -Wno-bool-compare -Wno-maybe-uninitialized -Wno-duplicate-decl-specifier -Wno-memset-elt-size -Wno-switch-unreachable -Wno-sizeof-pointer-memaccess -Wno-enum-compare -Wno-tautological-compare -Wno-unused-function -Wno-parentheses"
 
 #Compiler to use
-##define compiler CC=clang
-##define compileropts CLANG_TRIPLE=aarch64-linux-gnu-
-%define compiler %{nil}
-%define compileropts %{nil}
-
-# Crossbuild toolchain to use
-%define crossbuild aarch64
+%define makeopts DTC_EXT=/usr/bin/dtc
+%define crosscompile aarch64-linux-android-
+%define crosscompile32 arm-linux-androideabi-
 
 # RPM target architecture, remove to leave it unaffected
 # You should have a good reason to change the target architecture
@@ -21,10 +17,11 @@
 %define device_target_cpu aarch64
 
 # Defconfig to pick-up
-%define defconfig sfos-gs5_defconfig
+%define extra_config sfos-gs5_defconfig
+%define defconfig %{extra_config}
 
 # Linux kernel source directory
-%define source_directory linux/
+%define source_directory linux
 
 # Build modules
 %define build_modules 1
@@ -36,7 +33,7 @@
 %define apply_patches 1
 
 %define ramdisk ramdisk-mimameid.img
-##define build_dtboimg 1
+
 
 # Build and pick-up the following devicetrees
 ##define devicetrees
@@ -51,12 +48,15 @@
 %define deviceinfo_flash_offset_second 0x00e88000
 %define deviceinfo_flash_offset_tags 0x0bc80000
 %define deviceinfo_flash_offset_dtb 0x0bc80000
-%define deviceinfo_kernel_cmdline bootopt=64S3,32N2,64N2 systempart=/dev/mapper/system
+%define deviceinfo_kernel_cmdline bootopt=64S3,32N2,64N2 systempart=/dev/mapper/system init=/init
 %define deviceinfo_bootimg_os_version 11
 %define deviceinfo_bootimg_os_patch_level 2021-11-01
 %define deviceinfo_bootimg_header_version 2
 %define deviceinfo_bootimg_partition_size 33554432
 %define deviceinfo_rootfs_image_sector_size 4096
 %define deviceinfo_bootimg_qcdt false
+
+Version:        4.14.186
+Release:        1
 
 %include kernel-adaptation-simplified/kernel-adaptation-simplified.inc
