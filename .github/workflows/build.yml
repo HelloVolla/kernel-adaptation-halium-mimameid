@@ -1,0 +1,55 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PACKAGE: kernel-adaptation-halium
+  DEVICE: mimameid
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+
+    steps:
+      - name: Install git
+        run: dnf install -y git
+
+      - name: Checkout code and submodules
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Read environment configuration file
+        id: read-file
+        run: |
+          echo "KERNEL_VERSION=$(cat rpm/${PACKAGE}-${DEVICE}.spec | grep '^Version:' | awk '{print $2}')" >> $GITHUB_ENV
+          echo "RELEASE=$(cat rpm/${PACKAGE}-${DEVICE}.spec | grep '^Release:' | awk '{print $2}')" >> $GITHUB_ENV
+
+      - name: Install build dependencies
+        run: |
+          dnf install -y rpmdevtools glibc.i686 openssl-devel-engine nodejs glibc-devel
+          dnf builddep -y rpm/*.spec
+
+      - name: Build RPM package
+        run: |
+          source kernel-adaptation-simplified/setup-env.sh
+          rpmbuild --build-in-place --define 'debug_package %{nil}' --bb rpm/${PACKAGE}-${DEVICE}.spec --buildroot=$PWD/buildroot
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PACKAGE }}-${{ env.DEVICE }}-${{ env.KERNEL_VERSION }}-${{ env.RELEASE }}.aarch64.rpm
+          path: /github/home/rpmbuild/RPMS/aarch64/*.rpm
+
+      - name: Upload package to GitHub Releases
+        if: ${{ !env.ACT }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.KERNEL_VERSION }}-${{ env.RELEASE }}
+          files: /github/home/rpmbuild/RPMS/aarch64/*.rpm
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
