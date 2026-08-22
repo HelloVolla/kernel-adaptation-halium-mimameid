@@ -4,7 +4,7 @@
 # Kernel target architecture
 %define kernel_arch arm64
 
-%define kcflags "KCFLAGS="
+%define kcflags "KCFLAGS=-Wno-attributes -Wno-format -Wno-unused-variable -Wno-unused-result -Wno-pointer-to-int-cast -Wno-unused-value -Wno-sequence-point -Wno-return-type -Wno-implicit-int -Wno-maybe-uninitialized -Wno-sizeof-pointer-memaccess -Wno-enum-compare -Wno-unused-function -Wno-parentheses"
 
 #Compiler to use
 %define makeopts DTC_EXT=/usr/bin/dtc
