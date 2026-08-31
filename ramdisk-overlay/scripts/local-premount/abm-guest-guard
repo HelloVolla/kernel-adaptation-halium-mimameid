@@ -1,0 +1,44 @@
+#!/bin/sh
+
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in
+    prereqs) prereqs; exit 0 ;;
+esac
+
+. /scripts/functions
+
+guard_stop() {
+    echo "abm-guest-guard: $1" > /dev/kmsg 2>/dev/null
+    panic "abm-guest-guard: $1"
+    while :; do sleep 3600; done
+}
+
+cmdline=$(cat /proc/cmdline)
+
+case "$cmdline" in
+    *replaceme*)
+        guard_stop "unfinalized boot entry (replaceme on cmdline); refusing to touch internal userdata"
+        ;;
+esac
+
+case "$cmdline" in
+    *datapart=*)
+        datapart=""
+        for arg in $cmdline; do
+            case "$arg" in
+                datapart=*) datapart="${arg#*=}" ;;
+            esac
+        done
+        if [ -z "$datapart" ] || [ ! -b "$datapart" ]; then
+            guard_stop "datapart= missing or not a block device; refusing to use internal userdata"
+        fi
+        internal=$(find /dev -name userdata 2>/dev/null | tail -1)
+        [ -n "$internal" ] && internal=$(readlink -f "$internal")
+        if [ -n "$internal" ] && [ "$(readlink -f "$datapart")" = "$internal" ]; then
+            guard_stop "datapart= resolves to the host internal userdata; refusing to mount/format it"
+        fi
+        ;;
+esac
+
+exit 0
