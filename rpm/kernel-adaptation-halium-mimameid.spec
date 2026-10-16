@@ -67,6 +67,6 @@
 %define deviceinfo_bootimg_qcdt false
 
 Version:        4.19.191
-Release:        2
+Release:        3
 
 %include kernel-adaptation-simplified/kernel-adaptation-simplified.inc
