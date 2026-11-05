@@ -4,4 +4,4 @@
 	branch = halium-12.0
 [submodule "kernel-adaptation-simplified"]
 	path = kernel-adaptation-simplified
-	url = https://github.com/HelloVolla/kernel-adaptation-simplified.git
+	url = https://github.com/sailfishos-open/kernel-adaptation-simplified.git
