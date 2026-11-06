@@ -12,7 +12,7 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     container:
-      image: fedora:latest
+      image: fedora:45
 
     steps:
       - name: Install git
